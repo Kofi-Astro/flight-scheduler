@@ -80,10 +80,14 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
-    # --- caching: long for hashed assets, short for html -------------
+    # --- caching: long for static assets, short for html -------------
     def end_headers(self) -> None:
         path = self.path.split("?")[0]
-        if path.endswith((".css", ".js", ".svg", ".woff2", ".png", ".webp")):
+        if path in ("/env.js", "/js/env.js"):
+            # _serve_env_js already set Cache-Control: no-store — don't add a
+            # second, conflicting header here.
+            pass
+        elif path.endswith((".css", ".js", ".svg", ".woff2", ".png", ".webp")):
             self.send_header("Cache-Control", "public, max-age=3600")
         elif path.endswith(".html") or path == "/":
             self.send_header("Cache-Control", "no-cache")

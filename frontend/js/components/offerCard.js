@@ -46,9 +46,9 @@ export function createOfferCard(offer, { onSave, onShare, isCheapest = false } =
     );
   }
   paintPrice();
-  // The results view owns a single store subscription and calls this on every
-  // card when the display currency changes — avoids one listener per card.
-  card.repaintPrice = paintPrice;
+  // The parent view re-renders on a currency change (search view rebuilds the
+  // filter ranges; shortlist view reloads), so a per-card store subscription
+  // isn't needed here.
 
   // --- booking link ---------------------------------------------------
   const preferred = store.get("bookingSite");

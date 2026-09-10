@@ -29,18 +29,28 @@ export function createShortlistView() {
     listEl
   );
 
+  let lastItems = [];
+
   async function load() {
     clear(listEl);
     listEl.appendChild(el("div", { class: "row" }, el("span", { class: "spinner" }), " Loading saved options…"));
     try {
-      const items = await endpoints.listShortlist();
-      store.set({ shortlistCount: items.length });
-      render(items);
+      lastItems = await endpoints.listShortlist();
+      store.set({ shortlistCount: lastItems.length });
+      render(lastItems);
     } catch (err) {
       clear(listEl);
       listEl.appendChild(el("div", { class: "card", style: { borderColor: "var(--c-negative)" } }, err.message));
     }
   }
+
+  // Re-render (prices are converted client-side) when the currency toggle changes
+  // while this view is open.
+  store.subscribe((s, patch) => {
+    if ((patch.currency || patch.currencyRates) && view.isConnected && lastItems.length) {
+      render(lastItems);
+    }
+  });
 
   function render(items) {
     clear(listEl);
