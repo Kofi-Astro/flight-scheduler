@@ -1,6 +1,5 @@
 {
   "$schema": "https://railway.app/railway.schema.json",
-  "//": "Railway service config for the FRONTEND. Set the service's Root Directory to 'frontend' in the Railway UI. Needs one variable: API_BASE_URL = the public URL of the backend service.",
   "build": {
     "builder": "NIXPACKS"
   },

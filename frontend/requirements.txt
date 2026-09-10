@@ -1,0 +1,4 @@
+# The frontend server (server.py) uses ONLY the Python standard library.
+# This file is intentionally empty of packages — it exists so the Railway /
+# Nixpacks builder detects this as a Python service and provisions Python.
+# The Python version is pinned in .python-version.

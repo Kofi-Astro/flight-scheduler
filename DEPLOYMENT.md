@@ -9,7 +9,7 @@ Plus, optionally, a **Postgres** database and a **Cron** job for price alerts.
 
 Railway is the target, but the app is plain Python + static files, so it also
 runs on Render, Fly.io, a VPS, etc. The only platform-specific files are
-`railway.json` / `Procfile` / `nixpacks.toml` in each service folder.
+`railway.json` / `Procfile` in each service folder.
 
 ---
 

@@ -60,13 +60,13 @@ flight-scheduler/
 │   ├── scripts/build_airports.py
 │   ├── tests/
 │   ├── requirements.txt / requirements-dev.txt
-│   ├── railway.json · Procfile · nixpacks.toml
+│   ├── railway.json · Procfile
 │   └── .env.example
 ├── frontend/         Vanilla JS SPA     (see frontend/README.md)
 │   ├── index.html
 │   ├── server.py             stdlib static server + /env.js injector
 │   ├── css/ · js/            design system + components/views
-│   ├── railway.json · Procfile · nixpacks.toml
+│   ├── railway.json · Procfile
 │   └── .env.example
 ├── .env.example      combined reference of every variable
 ├── DEPLOYMENT.md     step-by-step Railway guide

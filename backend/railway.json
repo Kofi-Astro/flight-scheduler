@@ -1,6 +1,5 @@
 {
   "$schema": "https://railway.app/railway.schema.json",
-  "//": "Railway service config for the BACKEND. Set the service's Root Directory to 'backend' in the Railway UI so this file and requirements.txt are found.",
   "build": {
     "builder": "NIXPACKS"
   },
