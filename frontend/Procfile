@@ -1,0 +1,2 @@
+# Railway reads this to start the static server. $PORT is injected.
+web: python server.py

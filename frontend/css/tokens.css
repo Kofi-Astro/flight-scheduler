@@ -1,0 +1,106 @@
+/* ===========================================================================
+   Design tokens — the single source of truth for colour, type, spacing.
+   Change a value here and it cascades everywhere. Components never hard-code
+   colours or sizes; they use these custom properties.
+   =========================================================================== */
+
+:root {
+  /* --- Brand palette ------------------------------------------------------ */
+  --c-navy-900: #0b1f3a;   /* header, primary text on light */
+  --c-navy-700: #14315c;
+  --c-navy-500: #1d4e89;
+  --c-sky-500:  #2f7ed8;   /* primary action */
+  --c-sky-400:  #4d9be6;
+  --c-sky-100:  #e5f0fb;
+  --c-teal-500: #12a594;   /* success / price-drop */
+  --c-amber-500:#e8a33d;   /* warnings, "cheapest" highlight */
+  --c-rose-500: #d6455d;   /* errors, price-rise */
+
+  /* --- Neutrals (light theme defaults) --------------------------------- */
+  --c-bg:        #f4f6f9;  /* app background */
+  --c-surface:   #ffffff;  /* cards, panels */
+  --c-surface-2: #eef1f5;  /* subtle raised / hover */
+  --c-border:    #d9dee6;
+  --c-border-strong: #b9c1cd;
+  --c-text:      #16202e;
+  --c-text-soft: #566072;
+  --c-text-faint:#8a93a3;
+
+  /* --- Semantic aliases ------------------------------------------------ */
+  --c-primary:        var(--c-sky-500);
+  --c-primary-hover:  var(--c-navy-500);
+  --c-primary-contrast: #ffffff;
+  --c-accent:         var(--c-amber-500);
+  --c-positive:       var(--c-teal-500);
+  --c-negative:       var(--c-rose-500);
+  --c-focus-ring:     var(--c-sky-400);
+
+  /* --- Typography --------------------------------------------------- */
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+               "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+  --fs-xs:   0.75rem;
+  --fs-sm:   0.85rem;
+  --fs-base: 0.95rem;
+  --fs-md:   1.05rem;
+  --fs-lg:   1.25rem;
+  --fs-xl:   1.6rem;
+  --fs-2xl:  2.1rem;
+
+  --lh-tight: 1.2;
+  --lh-base:  1.5;
+
+  /* --- Spacing scale (4px base) ---------------------------------- */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.5rem;
+  --sp-6: 2rem;
+  --sp-8: 3rem;
+
+  /* --- Radii / shadow / motion --------------------------------- */
+  --radius-sm: 6px;
+  --radius:    10px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+
+  --shadow-sm: 0 1px 2px rgba(16, 32, 55, 0.08);
+  --shadow:    0 4px 16px rgba(16, 32, 55, 0.10);
+  --shadow-lg: 0 12px 40px rgba(16, 32, 55, 0.18);
+
+  --transition: 150ms ease;
+
+  /* --- Layout ------------------------------------------------- */
+  --content-max: 1180px;
+  --header-h: 60px;
+}
+
+/* --- Dark theme: only override what changes -------------------------------- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --c-bg:        #0c1420;
+    --c-surface:   #141e2c;
+    --c-surface-2: #1d2937;
+    --c-border:    #2a3849;
+    --c-border-strong: #3a4a5e;
+    --c-text:      #e8edf4;
+    --c-text-soft: #a7b2c2;
+    --c-text-faint:#6f7c8f;
+
+    --c-primary:        var(--c-sky-400);
+    --c-primary-hover:  var(--c-sky-500);
+    --c-sky-100:        #17324c;
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow:    0 4px 16px rgba(0, 0, 0, 0.45);
+    --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.6);
+  }
+}
+
+/* Respect users who ask for less motion. */
+@media (prefers-reduced-motion: reduce) {
+  :root { --transition: 0ms; }
+  * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}

@@ -26,5 +26,5 @@ psycopg[binary]==3.2.3
 python-dateutil==2.9.0.post0  # flexible date parsing / ranges for flexible-dates mode
 email-validator==2.2.0        # validates client email addresses in Pydantic models
 
-# --- Testing (safe to keep in prod image; tiny) ---
-pytest==8.3.4
+# Dev/test-only dependencies (pytest, etc.) live in requirements-dev.txt so the
+# deployed image stays lean:  pip install -r requirements-dev.txt

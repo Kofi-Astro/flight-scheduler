@@ -31,6 +31,7 @@ listing them in `ENABLED_PROVIDERS` (e.g. `mock,duffel,amadeus`).
 
 ```bash
 cd backend
+pip install -r requirements-dev.txt   # once
 python -m pytest
 ```
 

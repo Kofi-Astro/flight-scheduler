@@ -1,0 +1,187 @@
+/* ===========================================================================
+   Results view — search form, offer cards, filters, flexible-dates grid.
+   =========================================================================== */
+
+/* --- Search form ---------------------------------------------------------- */
+.search-form { display: grid; gap: var(--sp-4); }
+.search-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-3);
+}
+.search-form__row--3 { grid-template-columns: 1fr 1fr 1fr; }
+.search-form__row--4 { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 720px) {
+  .search-form__row,
+  .search-form__row--3,
+  .search-form__row--4 { grid-template-columns: 1fr; }
+}
+
+.swap-btn {
+  align-self: end;
+  justify-self: center;
+}
+
+/* multi-city legs */
+.leg-row { display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: var(--sp-2); align-items: end; }
+@media (max-width: 720px) { .leg-row { grid-template-columns: 1fr 1fr; } }
+
+/* --- Results toolbar (sort + result count) ---------------------------- */
+.results-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+  margin-bottom: var(--sp-4);
+}
+.results-count { font-weight: 700; }
+.results-count small { color: var(--c-text-faint); font-weight: 500; }
+
+/* --- Filters panel (sidebar) --------------------------------------- */
+.filters { position: sticky; top: calc(var(--header-h) + var(--sp-4)); }
+.filters__group { padding: var(--sp-3) 0; border-bottom: 1px solid var(--c-border); }
+.filters__group:last-child { border-bottom: 0; }
+.filters__group h4 { margin-bottom: var(--sp-2); font-size: var(--fs-sm); text-transform: uppercase; letter-spacing: 0.4px; color: var(--c-text-faint); }
+.check { display: flex; align-items: center; gap: var(--sp-2); padding: var(--sp-1) 0; font-size: var(--fs-sm); cursor: pointer; }
+.check input { width: 16px; height: 16px; accent-color: var(--c-primary); }
+.check__count { margin-left: auto; color: var(--c-text-faint); font-variant-numeric: tabular-nums; }
+
+.range-row { display: flex; align-items: center; gap: var(--sp-2); }
+.range-row input[type="range"] { flex: 1; accent-color: var(--c-primary); }
+.range-row output { font-size: var(--fs-xs); font-variant-numeric: tabular-nums; min-width: 6ch; text-align: right; }
+
+/* --- Offer card ------------------------------------------------ */
+.offer {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: box-shadow var(--transition), border-color var(--transition);
+}
+.offer:hover { box-shadow: var(--shadow); border-color: var(--c-border-strong); }
+.offer.is-cheapest { border-color: var(--c-accent); }
+
+.offer__body { display: grid; grid-template-columns: 1fr auto; gap: var(--sp-4); padding: var(--sp-4); }
+@media (max-width: 640px) { .offer__body { grid-template-columns: 1fr; } }
+
+.offer__slices { display: flex; flex-direction: column; gap: var(--sp-4); min-width: 0; }
+
+/* one slice = a horizontal timeline */
+.slice { display: grid; grid-template-columns: auto 1fr auto; gap: var(--sp-3); align-items: center; }
+.slice__end { text-align: center; }
+.slice__time { font-size: var(--fs-md); font-weight: 750; font-variant-numeric: tabular-nums; }
+.slice__airport { font-family: var(--font-mono); font-size: var(--fs-sm); color: var(--c-text-soft); }
+.slice__date { font-size: var(--fs-xs); color: var(--c-text-faint); }
+
+.slice__mid { text-align: center; }
+.slice__duration { font-size: var(--fs-xs); color: var(--c-text-faint); }
+.slice__line {
+  height: 2px;
+  background: var(--c-border-strong);
+  position: relative;
+  margin: var(--sp-2) 0;
+}
+.slice__line::before, .slice__line::after {
+  content: ""; position: absolute; top: 50%; width: 7px; height: 7px;
+  border-radius: 50%; background: var(--c-text-soft); transform: translateY(-50%);
+}
+.slice__line::before { left: 0; }
+.slice__line::after { right: 0; }
+.slice__stop-dot {
+  position: absolute; top: 50%; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--c-accent); transform: translate(-50%, -50%);
+}
+.slice__stops { font-size: var(--fs-xs); font-weight: 700; }
+.slice__stops--nonstop { color: var(--c-positive); }
+.slice__layovers { font-size: var(--fs-xs); color: var(--c-text-faint); }
+.slice__airline { font-size: var(--fs-xs); color: var(--c-text-soft); }
+
+/* price + actions column */
+.offer__aside {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--sp-2);
+  border-left: 1px solid var(--c-border);
+  padding-left: var(--sp-4);
+  min-width: 196px;
+}
+/* Book / Save / Share sit in a right-aligned wrapping row. */
+.offer__aside .row { justify-content: flex-end; width: 100%; }
+@media (max-width: 640px) {
+  .offer__aside { border-left: 0; border-top: 1px solid var(--c-border); padding-left: 0; padding-top: var(--sp-3); align-items: stretch; }
+}
+.offer__price { font-size: var(--fs-xl); font-weight: 800; font-variant-numeric: tabular-nums; }
+.offer__price small { display: block; font-size: var(--fs-xs); font-weight: 500; color: var(--c-text-faint); }
+.offer__provider { font-size: var(--fs-xs); color: var(--c-text-faint); }
+
+.offer__details {
+  border-top: 1px solid var(--c-border);
+  padding: var(--sp-4);
+  background: var(--c-surface-2);
+  font-size: var(--fs-sm);
+}
+.offer__seg-list { display: flex; flex-direction: column; gap: var(--sp-3); }
+.seg { display: grid; grid-template-columns: 70px 1fr; gap: var(--sp-3); }
+.seg__time { font-variant-numeric: tabular-nums; font-weight: 700; }
+.seg__layover { color: var(--c-accent); font-size: var(--fs-xs); padding: var(--sp-1) 0 var(--sp-1) 82px; }
+
+/* --- Flexible-dates price grid --------------------------- */
+.pricegrid { border-collapse: separate; border-spacing: 3px; }
+.pricegrid th, .pricegrid td {
+  padding: var(--sp-2);
+  text-align: center;
+  font-size: var(--fs-xs);
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+}
+.pricegrid th { color: var(--c-text-faint); font-weight: 700; }
+.pricegrid td.cell {
+  background: var(--c-surface-2);
+  cursor: pointer;
+  font-variant-numeric: tabular-nums;
+  min-width: 74px;
+  transition: transform var(--transition);
+}
+.pricegrid td.cell:hover { transform: scale(1.06); box-shadow: var(--shadow-sm); }
+.pricegrid td.cell.is-cheapest { background: var(--c-accent); color: #241a05; font-weight: 800; }
+.pricegrid td.cell.is-empty { color: var(--c-text-faint); cursor: default; }
+.pricegrid td.cell .price { display: block; font-weight: 700; }
+.pricegrid .cell--heat-1 { background: color-mix(in srgb, var(--c-positive) 12%, var(--c-surface-2)); }
+.pricegrid .cell--heat-2 { background: color-mix(in srgb, var(--c-positive) 22%, var(--c-surface-2)); }
+.pricegrid .cell--heat-4 { background: color-mix(in srgb, var(--c-negative) 12%, var(--c-surface-2)); }
+.pricegrid .cell--heat-5 { background: color-mix(in srgb, var(--c-negative) 22%, var(--c-surface-2)); }
+
+/* --- Shortlist / client / alert list items --------- */
+.list-item {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-4);
+  display: flex;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  align-items: flex-start;
+}
+.list-item__main { min-width: 0; }
+.list-item__title { font-weight: 700; margin-bottom: var(--sp-1); }
+.list-item__meta { font-size: var(--fs-sm); color: var(--c-text-soft); }
+.list-item__actions { display: flex; gap: var(--sp-2); flex-shrink: 0; flex-wrap: wrap; justify-content: flex-end; }
+
+.price-delta--down { color: var(--c-positive); font-weight: 700; }
+.price-delta--up { color: var(--c-negative); font-weight: 700; }
+
+/* --- WhatsApp share preview ----------------------- */
+.share-preview {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  white-space: pre-wrap;
+  background: var(--c-surface-2);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  padding: var(--sp-3);
+  max-height: 320px;
+  overflow: auto;
+}
