@@ -1,0 +1,30 @@
+# ===========================================================================
+# Backend Python dependencies
+# ---------------------------------------------------------------------------
+# Pinned to compatible ranges so a fresh `pip install -r requirements.txt`
+# keeps working. Bump deliberately, then re-test.
+# ===========================================================================
+
+# --- Web framework ---
+fastapi==0.115.6           # API framework
+uvicorn[standard]==0.34.0  # ASGI server (the "standard" extra adds websockets, uvloop, httptools)
+
+# --- Settings & validation ---
+pydantic==2.10.4           # Data models / validation (FastAPI depends on this too)
+pydantic-settings==2.7.1   # Loads settings from environment variables / .env
+
+# --- HTTP client for calling provider APIs ---
+httpx==0.28.1              # async HTTP client used by every provider
+
+# --- Database ---
+SQLAlchemy==2.0.36         # ORM / core; works with SQLite locally and Postgres in prod
+# psycopg driver is only needed when DATABASE_URL points at Postgres.
+# It is safe to install everywhere; it has prebuilt wheels.
+psycopg[binary]==3.2.3
+
+# --- Utilities ---
+python-dateutil==2.9.0.post0  # flexible date parsing / ranges for flexible-dates mode
+email-validator==2.2.0        # validates client email addresses in Pydantic models
+
+# --- Testing (safe to keep in prod image; tiny) ---
+pytest==8.3.4

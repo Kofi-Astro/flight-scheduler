@@ -1,0 +1,62 @@
+# ---------------------------------------------------------------------------
+# Flight Scheduler — root .gitignore
+# ---------------------------------------------------------------------------
+# We keep ONE .gitignore at the repo root so a non-specialist only has to look
+# in one place. Patterns are grouped by concern.
+# ---------------------------------------------------------------------------
+
+# --- Secrets: never commit real credentials -------------------------------
+# Only `.env.example` files (which contain placeholders) are tracked.
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+
+# --- Python --------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Virtual environments (any common name)
+.venv/
+venv/
+env/
+ENV/
+backend/.venv/
+
+# --- Local databases / runtime data ------------------------------------
+# The default local dev DB is a throwaway SQLite file.
+*.sqlite3
+*.db
+backend/data/*.sqlite3
+backend/app/data/local.sqlite3
+
+# --- Node (only used by optional tooling, never for the app itself) ----
+node_modules/
+npm-debug.log*
+
+# --- Editor / OS noise ------------------------------------------------
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+# Keep shared VS Code settings, ignore per-user ones
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# --- Build / deploy artifacts ---------------------------------------
+*.log
+.railway/
