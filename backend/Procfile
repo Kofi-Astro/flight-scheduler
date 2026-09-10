@@ -1,0 +1,3 @@
+# Railway (and Heroku-style platforms) read this to know how to start the app.
+# $PORT is injected by the platform.
+web: uvicorn app.main:app --host 0.0.0.0 --port $PORT

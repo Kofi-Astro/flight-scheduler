@@ -17,7 +17,7 @@ Vocabulary
 
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import datetime, timezone
 from enum import Enum
 
 from pydantic import BaseModel, Field
@@ -136,8 +136,12 @@ class FlightOffer(BaseModel):
     booking_type: BookingType = BookingType.search_link
     deep_link: str | None = Field(
         default=None,
-        description="Where the 'Book' button sends the operator.",
+        description="Where the 'Book' button sends the operator (best single link).",
     )
+    # Extra links keyed by site name (google_flights, skyscanner, kayak, native).
+    # Filled by the search service via deeplink_service so the frontend can offer
+    # a choice. Not stored by providers.
+    booking_links: dict[str, str] = Field(default_factory=dict)
 
     # A few denormalised fields make sorting/filtering on the frontend trivial
     # without re-deriving them from the slices every time.
@@ -153,7 +157,9 @@ class FlightOffer(BaseModel):
 
     # When the price was fetched — offers are volatile, this helps the UI warn
     # the operator if a shortlisted price is stale.
-    fetched_at: datetime = Field(default_factory=datetime.utcnow)
+    fetched_at: datetime = Field(
+        default_factory=lambda: datetime.now(timezone.utc)
+    )
 
     # Kept for debugging / future fields. Excluded from responses unless asked
     # for via ?debug=1 (see the search router).

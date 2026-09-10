@@ -24,9 +24,10 @@ from __future__ import annotations
 
 from functools import lru_cache
 from pathlib import Path
+from typing import Annotated
 
 from pydantic import Field, field_validator
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic_settings import BaseSettings, NoDecode, SettingsConfigDict
 
 # Absolute path to the ``backend/`` directory, used to locate bundled data files
 # regardless of the current working directory.
@@ -57,7 +58,9 @@ class Settings(BaseSettings):
         description="'development' or 'production'. Controls docs verbosity.",
     )
 
-    cors_allow_origins: list[str] = Field(
+    # ``NoDecode`` stops pydantic-settings from trying to JSON-parse the env
+    # value; our ``_split_csv`` validator below turns "a,b,c" into a list.
+    cors_allow_origins: Annotated[list[str], NoDecode] = Field(
         default_factory=lambda: ["http://localhost:5173", "http://127.0.0.1:5173"],
         description="Front-end origins allowed to call the API.",
     )
@@ -69,7 +72,7 @@ class Settings(BaseSettings):
     )
 
     # --- Providers ----------------------------------------------------
-    enabled_providers: list[str] = Field(
+    enabled_providers: Annotated[list[str], NoDecode] = Field(
         default_factory=lambda: ["mock"],
         description="Provider keys to query, in priority order.",
     )
